@@ -12,6 +12,8 @@ class PYRSISCV_OPCODE(PyRiscvEnum):
     BRANCH    = 0b11000
     OP_IMM    = 0b00100
     OP        = 0b01100
+    LOAD      = 0b00000
+    STORE     = 0b01000
     
 class PYRSISCV_FUNCT3_OP_IMM_OP(PyRiscvEnum):
     ADD  = 0b000

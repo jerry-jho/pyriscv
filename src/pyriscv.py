@@ -6,11 +6,13 @@ from pyriscv_operator import *
 
     
 class PyRiscv:
-    def __init__(self,imem,reset_vec=0,bw=32):
+    def __init__(self,imem,dmem,reset_vec=0,bw=32):
         self._imem = imem
+        self._dmem = dmem
         self._pc   = reset_vec
         self._regs = PyRiscvRegs(32,bw)
         self._operator = PyRiscvOperator(bw)
+        self._bw = bw
         self.__control()
         
     def __control(self):
@@ -34,6 +36,7 @@ class PyRiscv:
         decode_map.OPCODE              = PYRSISCV_OPCODE.FV(w[6:2])
         decode_map.FUNCT3_OP_IMM_OP    = PYRSISCV_FUNCT3_OP_IMM_OP.FV(w[14:12])
         decode_map.FUNCT3_BRANCH       = PYRSISCV_FUNCT3_BRANCH.FV(w[14:12])
+        decode_map.FUNCT3_LOADSTORE    = PYRSISCV_FUNCT3_LOAD_STORE.FV(w[14:12])
         decode_map.FUNCT7              = w[31:25]
         decode_map.RD                  = w[11:7]
         decode_map.RS1                 = w[19:15]
@@ -41,6 +44,7 @@ class PyRiscv:
         decode_map.IMMJ                = PyRiscvOperator(21).signed((w[30:21]<<1) | (w[20] << 11)   | (w[19:12] << 12) | (w[31] << 20))
         decode_map.IMMB                = PyRiscvOperator(13).signed((w[11:8]<<1)  | (w[30:25] << 5) | (w[7] << 11)     | (w[31] << 12))
         decode_map.IMMI                = PyRiscvOperator(12).signed(w[31:20])
+        decode_map.IMMS                = PyRiscvOperator(12).signed(w[11:7] + (w[31:25]<<5))
         decode_map.IMMU                = w[31:12] << 12
         decode_map.EXIT                = (int(w) == 0x00002033)
         
@@ -76,11 +80,37 @@ class PyRiscv:
             self._pc += 4
         elif decode_map.OPCODE == PYRSISCV_OPCODE.AUIPC:
             self._pc += decode_map.IMMU
-            self._regs[decode_map.RD] = self._pc           
+            self._regs[decode_map.RD] = self._pc   
+        elif decode_map.OPCODE == PYRSISCV_OPCODE.LOAD:
+            dmem_base = self._regs[decode_map.RS1] + decode_map.IMMI
+            if decode_map.FUNCT3_LOADSTORE == PYRSISCV_FUNCT3_LOAD_STORE.W:
+                self._regs[decode_map.RD] = PyRiscvOperator(self._bw).signed(self._dmem[dmem_base] + (self._dmem[dmem_base + 1] << 8) + \
+                                            (self._dmem[dmem_base + 2] << 16) + (self._dmem[dmem_base + 3] << 24))
+            elif decode_map.FUNCT3_LOADSTORE == PYRSISCV_FUNCT3_LOAD_STORE.H:
+                self._regs[decode_map.RD] = PyRiscvOperator(16).signed(self._dmem[dmem_base] + (self._dmem[dmem_base + 1] << 8))
+            elif decode_map.FUNCT3_LOADSTORE == PYRSISCV_FUNCT3_LOAD_STORE.HU:
+                self._regs[decode_map.RD] = self._dmem[dmem_base] + (self._dmem[dmem_base + 1] << 8)
+            elif decode_map.FUNCT3_LOADSTORE == PYRSISCV_FUNCT3_LOAD_STORE.B:
+                self._regs[decode_map.RD] = PyRiscvOperator(8).signed(self._dmem[dmem_base])
+            elif decode_map.FUNCT3_LOADSTORE == PYRSISCV_FUNCT3_LOAD_STORE.BU:
+                self._regs[decode_map.RD] = self._dmem[dmem_base]
+        elif decode_map.OPCODE == PYRSISCV_OPCODE.STORE:
+            dmem_base = self._regs[decode_map.RS1] + decode_map.IMMS
+            dmem_data = PyRiscvOperator(self._bw).unsigned(self._regs[decode_map.RS2])
+            if decode_map.FUNCT3_LOADSTORE == PYRSISCV_FUNCT3_LOAD_STORE.W:
+                self._dmem[dmem_base]   = dmem_data & 0xFF
+                self._dmem[dmem_base+1] = (dmem_data & 0xFF00) >> 8
+                self._dmem[dmem_base+2] = (dmem_data & 0xFF0000) >> 16
+                self._dmem[dmem_base+3] = (dmem_data & 0xFF000000) >> 24
+            elif decode_map.FUNCT3_LOADSTORE == PYRSISCV_FUNCT3_LOAD_STORE.H:
+                self._dmem[dmem_base]   = dmem_data & 0xFF
+                self._dmem[dmem_base+1] = (dmem_data & 0xFF00) >> 8
+            elif decode_map.FUNCT3_LOADSTORE == PYRSISCV_FUNCT3_LOAD_STORE.B:
+                self._dmem[dmem_base]   = dmem_data & 0xFF               
         if decode_map.EXIT:
             self._exit = True
     
 if __name__ == '__main__':
     import sys
     imem = PyMEM(sys.argv[1])
-    PyRiscv(imem)
+    PyRiscv(imem,imem)

@@ -31,6 +31,8 @@ class PyMEM:
                     addr += 1
     def __getitem__(self,addr):
         return self._mdata[addr]
+    def __setitem__(self,addr,data):
+        self._mdata[addr] = data
                     
 if __name__ == '__main__':
     import sys
