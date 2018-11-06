@@ -3,6 +3,17 @@
 
 from collections import OrderedDict
 
+def PyMem_Iter(_mdata):
+        _addr  = 0
+        _max_addr = list(_mdata.keys())[-1]
+        while True:
+            if _addr > _max_addr:
+                return
+            else:
+                v = _addr
+                _addr += 1
+                yield v
+
 class PyMEM:
     FORMAT_VLOG_B8 = 1
     
@@ -33,9 +44,13 @@ class PyMEM:
         return self._mdata[addr]
     def __setitem__(self,addr,data):
         self._mdata[addr] = data
+    def keys(self):
+        return PyMem_Iter(self._mdata)
                     
 if __name__ == '__main__':
     import sys
     o = PyMEM(sys.argv[1])
     print(o._mdata)
+    for a in o.keys():
+        print(a,o[a])
         
