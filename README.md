@@ -16,4 +16,3 @@ No other libraries!!
 
 All data write to x0 will print to console
 
-put the unzipped xpgcc and pyriscv under the same catalogue to use!
