@@ -35,17 +35,31 @@ class PyMEM:
                 if seg == '':
                     continue
                 if seg.startswith('@'):
+                    #padding for 32bit align
+                    while (addr%4)!=0:
+                        print("padding 0 ","%#4x"%addr)
+                        mdata[addr] = 0
+                        addr+=1
                     addr = int(seg[1:],base=16)
                 else:
                     data = int(seg,base=16)
                     mdata[addr] = data
                     addr += 1
+        #padding for 32bit align
+        while (addr%4)!=0:
+            print("padding 0 ","%#4x"%addr)
+            mdata[addr] = 0
+            addr+=1
+
     def __getitem__(self,addr):
         return self._mdata[addr]
     def __setitem__(self,addr,data):
+        print("meset",addr,data,"%#x"%addr,"%#x"%data)
         self._mdata[addr] = data
     def keys(self):
         return PyMem_Iter(self._mdata)
+    def maxaddr(self):
+        return list(self._mdata.keys())[-1]
                     
 if __name__ == '__main__':
     import sys
