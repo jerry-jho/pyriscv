@@ -6,6 +6,8 @@ Requires:
   
 No other libraries!!
 
+Simulator can now perform simple actions such as printing
+
 # run
 
     cd app
