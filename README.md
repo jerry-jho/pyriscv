@@ -15,3 +15,4 @@ No other libraries!!
     python3 ../src/pyriscv.py app.mem
 
 All data write to x0 will print to console
+put xpgcc and pyriscv under the same catalogue to use!
