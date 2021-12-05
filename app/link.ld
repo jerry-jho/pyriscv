@@ -12,10 +12,8 @@ SECTIONS
     {
         . = ALIGN(4);
         KEEP(*(.vectors))
-    } > imem
-
-    .text : {
-        . = ALIGN(4);
         *(.text)
     }  > imem
 }
+
+

@@ -1,0 +1,9 @@
+del app1.mem
+del app1.S
+del app1.i
+del app1.elf
+del app1.lst
+del app.mem
+del app.i
+del app.elf
+del app.lst
