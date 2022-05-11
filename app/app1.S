@@ -367,8 +367,9 @@ main:
 	addi	s0,sp,16
 	lui	a5,%hi(pointer)
 	sw	zero,%lo(pointer)(a5)
-	li	a0,65
-	call	putchar
+	li	a5,20480
+	addi	a0,a5,-1979
+	call	uart
 	nop
 	lw	ra,12(sp)
 	lw	s0,8(sp)

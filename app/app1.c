@@ -36,7 +36,7 @@ char font[]={0x30, 0x78, 0xcc, 0xcc, 0xfc, 0xcc, 0xcc, 0x00 ,  // 0041 (A)
 };
 char hello[]="HELLO WORLD HELLO WORLD";
 
-void printchar(char ch, int row, int col) { 
+void printchar(char ch, int row, int col) {
     int k;
     fontp = ch - 'A';
     fontp = fontp << 3;
@@ -109,5 +109,5 @@ void uart(char inputstr[]) {
 }
 void main() {
     pointer = 0;
-    putchar('A');
+    uart('HE');
 }

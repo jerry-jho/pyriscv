@@ -113,5 +113,5 @@ void uart(char inputstr[]) {
 }
 void main() {
     pointer = 0;
-    putchar('A');
+    uart('HE');
 }

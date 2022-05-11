@@ -9,7 +9,7 @@ Disassembly of section .vectors:
    4:	03000393          	li	t2,48
    8:	00730e33          	add	t3,t1,t2
    c:	00001137          	lui	sp,0x1
-  10:	80010113          	addi	sp,sp,-2048 # 800 <boot_stack+0x168>
+  10:	80010113          	addi	sp,sp,-2048 # 800 <boot_stack+0x164>
   14:	34c0006f          	j	360 <main>
   18:	00002033          	sltz	zero,zero
 
@@ -23,36 +23,36 @@ Disassembly of section .vectors:
   34:	fcf40fa3          	sb	a5,-33(s0)
   38:	fdf44783          	lbu	a5,-33(s0)
   3c:	fbf78713          	addi	a4,a5,-65
-  40:	68e02623          	sw	a4,1676(zero) # 68c <fontp>
-  44:	68c02783          	lw	a5,1676(zero) # 68c <fontp>
+  40:	68e02823          	sw	a4,1680(zero) # 690 <fontp>
+  44:	69002783          	lw	a5,1680(zero) # 690 <fontp>
   48:	00379713          	slli	a4,a5,0x3
-  4c:	68e02623          	sw	a4,1676(zero) # 68c <fontp>
+  4c:	68e02823          	sw	a4,1680(zero) # 690 <fontp>
   50:	fd842783          	lw	a5,-40(s0)
   54:	00779713          	slli	a4,a5,0x7
   58:	fd442783          	lw	a5,-44(s0)
   5c:	00f70733          	add	a4,a4,a5
-  60:	68e02a23          	sw	a4,1684(zero) # 694 <r>
-  64:	68c02783          	lw	a5,1676(zero) # 68c <fontp>
+  60:	68e02c23          	sw	a4,1688(zero) # 698 <r>
+  64:	69002783          	lw	a5,1680(zero) # 690 <fontp>
   68:	00878713          	addi	a4,a5,8
-  6c:	68e02823          	sw	a4,1680(zero) # 690 <fontp2>
-  70:	68c02783          	lw	a5,1676(zero) # 68c <fontp>
+  6c:	68e02a23          	sw	a4,1684(zero) # 694 <fontp2>
+  70:	69002783          	lw	a5,1680(zero) # 690 <fontp>
   74:	fef42623          	sw	a5,-20(s0)
   78:	03c0006f          	j	b4 <printchar+0x98>
-  7c:	69402783          	lw	a5,1684(zero) # 694 <r>
+  7c:	69802783          	lw	a5,1688(zero) # 698 <r>
   80:	01078713          	addi	a4,a5,16
-  84:	68e02a23          	sw	a4,1684(zero) # 694 <r>
-  88:	69402783          	lw	a5,1684(zero) # 694 <r>
-  8c:	59400693          	li	a3,1428
+  84:	68e02c23          	sw	a4,1688(zero) # 698 <r>
+  88:	69802783          	lw	a5,1688(zero) # 698 <r>
+  8c:	59800693          	li	a3,1432
   90:	fec42703          	lw	a4,-20(s0)
   94:	00e68733          	add	a4,a3,a4
   98:	00074703          	lbu	a4,0(a4)
-  9c:	39400693          	li	a3,916
+  9c:	39800693          	li	a3,920
   a0:	00f687b3          	add	a5,a3,a5
   a4:	00e78023          	sb	a4,0(a5)
   a8:	fec42783          	lw	a5,-20(s0)
   ac:	00178793          	addi	a5,a5,1
   b0:	fef42623          	sw	a5,-20(s0)
-  b4:	69002783          	lw	a5,1680(zero) # 690 <fontp2>
+  b4:	69402783          	lw	a5,1684(zero) # 694 <fontp2>
   b8:	fec42703          	lw	a4,-20(s0)
   bc:	fcf740e3          	blt	a4,a5,7c <printchar+0x60>
   c0:	00000013          	nop
@@ -73,7 +73,7 @@ Disassembly of section .vectors:
   f4:	fe042623          	sw	zero,-20(s0)
   f8:	fe042423          	sw	zero,-24(s0)
   fc:	000027b7          	lui	a5,0x2
- 100:	6987a783          	lw	a5,1688(a5) # 2698 <pointer>
+ 100:	69c7a783          	lw	a5,1692(a5) # 269c <pointer>
  104:	fef42623          	sw	a5,-20(s0)
  108:	01c0006f          	j	124 <putchar+0x50>
  10c:	fec42783          	lw	a5,-20(s0)
@@ -91,16 +91,16 @@ Disassembly of section .vectors:
  13c:	fe842783          	lw	a5,-24(s0)
  140:	00479713          	slli	a4,a5,0x4
  144:	000027b7          	lui	a5,0x2
- 148:	68e7ac23          	sw	a4,1688(a5) # 2698 <pointer>
+ 148:	68e7ae23          	sw	a4,1692(a5) # 269c <pointer>
  14c:	12c0006f          	j	278 <putchar+0x1a4>
  150:	fcc42703          	lw	a4,-52(s0)
  154:	00d00793          	li	a5,13
  158:	00f71e63          	bne	a4,a5,174 <putchar+0xa0>
  15c:	000027b7          	lui	a5,0x2
- 160:	6987a783          	lw	a5,1688(a5) # 2698 <pointer>
+ 160:	69c7a783          	lw	a5,1692(a5) # 269c <pointer>
  164:	01078713          	addi	a4,a5,16
  168:	000027b7          	lui	a5,0x2
- 16c:	68e7ac23          	sw	a4,1688(a5) # 2698 <pointer>
+ 16c:	68e7ae23          	sw	a4,1692(a5) # 269c <pointer>
  170:	1080006f          	j	278 <putchar+0x1a4>
  174:	fcc42703          	lw	a4,-52(s0)
  178:	00900793          	li	a5,9
@@ -108,7 +108,7 @@ Disassembly of section .vectors:
  180:	fe042223          	sw	zero,-28(s0)
  184:	fe042023          	sw	zero,-32(s0)
  188:	000027b7          	lui	a5,0x2
- 18c:	6987a783          	lw	a5,1688(a5) # 2698 <pointer>
+ 18c:	69c7a783          	lw	a5,1692(a5) # 269c <pointer>
  190:	fef42223          	sw	a5,-28(s0)
  194:	01c0006f          	j	1b0 <putchar+0xdc>
  198:	fe442783          	lw	a5,-28(s0)
@@ -126,22 +126,22 @@ Disassembly of section .vectors:
  1c8:	fe042783          	lw	a5,-32(s0)
  1cc:	00279713          	slli	a4,a5,0x2
  1d0:	000027b7          	lui	a5,0x2
- 1d4:	68e7ac23          	sw	a4,1688(a5) # 2698 <pointer>
+ 1d4:	68e7ae23          	sw	a4,1692(a5) # 269c <pointer>
  1d8:	0a00006f          	j	278 <putchar+0x1a4>
  1dc:	fcc42703          	lw	a4,-52(s0)
  1e0:	02000793          	li	a5,32
  1e4:	00f71e63          	bne	a4,a5,200 <putchar+0x12c>
  1e8:	000027b7          	lui	a5,0x2
- 1ec:	6987a783          	lw	a5,1688(a5) # 2698 <pointer>
+ 1ec:	69c7a783          	lw	a5,1692(a5) # 269c <pointer>
  1f0:	00178713          	addi	a4,a5,1
  1f4:	000027b7          	lui	a5,0x2
- 1f8:	68e7ac23          	sw	a4,1688(a5) # 2698 <pointer>
+ 1f8:	68e7ae23          	sw	a4,1692(a5) # 269c <pointer>
  1fc:	07c0006f          	j	278 <putchar+0x1a4>
  200:	fc042e23          	sw	zero,-36(s0)
  204:	fc042c23          	sw	zero,-40(s0)
  208:	fc042a23          	sw	zero,-44(s0)
  20c:	000027b7          	lui	a5,0x2
- 210:	6987a783          	lw	a5,1688(a5) # 2698 <pointer>
+ 210:	69c7a783          	lw	a5,1692(a5) # 269c <pointer>
  214:	fcf42e23          	sw	a5,-36(s0)
  218:	01c0006f          	j	234 <putchar+0x160>
  21c:	fdc42783          	lw	a5,-36(s0)
@@ -163,10 +163,10 @@ Disassembly of section .vectors:
  25c:	00078513          	mv	a0,a5
  260:	dbdff0ef          	jal	ra,1c <printchar>
  264:	000027b7          	lui	a5,0x2
- 268:	6987a783          	lw	a5,1688(a5) # 2698 <pointer>
+ 268:	69c7a783          	lw	a5,1692(a5) # 269c <pointer>
  26c:	00178713          	addi	a4,a5,1
  270:	000027b7          	lui	a5,0x2
- 274:	68e7ac23          	sw	a4,1688(a5) # 2698 <pointer>
+ 274:	68e7ae23          	sw	a4,1692(a5) # 269c <pointer>
  278:	03c12083          	lw	ra,60(sp)
  27c:	03812403          	lw	s0,56(sp)
  280:	04010113          	addi	sp,sp,64
@@ -214,7 +214,7 @@ Disassembly of section .vectors:
  318:	fdc42703          	lw	a4,-36(s0)
  31c:	00f707b3          	add	a5,a4,a5
  320:	0007c703          	lbu	a4,0(a5)
- 324:	39400793          	li	a5,916
+ 324:	39800793          	li	a5,920
  328:	00e78023          	sb	a4,0(a5)
  32c:	fec42783          	lw	a5,-20(s0)
  330:	00178793          	addi	a5,a5,1
@@ -236,11 +236,12 @@ Disassembly of section .vectors:
  368:	00812423          	sw	s0,8(sp)
  36c:	01010413          	addi	s0,sp,16
  370:	000027b7          	lui	a5,0x2
- 374:	6807ac23          	sw	zero,1688(a5) # 2698 <pointer>
- 378:	04100513          	li	a0,65
- 37c:	d59ff0ef          	jal	ra,d4 <putchar>
- 380:	00000013          	nop
- 384:	00c12083          	lw	ra,12(sp)
- 388:	00812403          	lw	s0,8(sp)
- 38c:	01010113          	addi	sp,sp,16
- 390:	00008067          	ret
+ 374:	6807ae23          	sw	zero,1692(a5) # 269c <pointer>
+ 378:	000057b7          	lui	a5,0x5
+ 37c:	84578513          	addi	a0,a5,-1979 # 4845 <pointer+0x21a9>
+ 380:	f7dff0ef          	jal	ra,2fc <uart>
+ 384:	00000013          	nop
+ 388:	00c12083          	lw	ra,12(sp)
+ 38c:	00812403          	lw	s0,8(sp)
+ 390:	01010113          	addi	sp,sp,16
+ 394:	00008067          	ret
