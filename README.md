@@ -6,8 +6,6 @@ Requires:
   
 No other libraries!!
 
-Simulator can now perform simple actions such as printing
-
 # run
 
     cd app
@@ -17,4 +15,3 @@ Simulator can now perform simple actions such as printing
     python3 ../src/pyriscv.py app.mem
 
 All data write to x0 will print to console
-
